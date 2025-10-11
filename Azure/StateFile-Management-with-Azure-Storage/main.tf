@@ -5,10 +5,17 @@ terraform {
         version = "~>4.8.0"
     }
   }
+  backend "azurerm" {
+    resource_group_name = "terraform-lab-yt"
+    storage_account_name = "terraformlab11102025"                    # Can be passed via `-backend-config=`"storage_account_name=<storage account name>"` in the `init` command.
+    container_name       = "tfstate"                                 # Can be passed via `-backend-config=`"container_name=<container name>"` in the `init` command.
+    key                  = "dev.terraform.tfstate"                   # Can be passed via `-backend-config=`"key=<blob key name>"` in the `init` command.
+  }
   required_version = ">=1.9.0"
 }
 
 provider "azurerm" {
+  subscription_id = "3102ede3-a613-41b0-a37c-b169acdb188b"
     features {
     }
 }
