@@ -1,0 +1,3 @@
+
+application_name = "tundesblog"
+environment_name = "dev"

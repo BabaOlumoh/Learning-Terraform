@@ -13,5 +13,5 @@ resource "random_string" "suffix"{
 
 #Locals
 locals {
-  environment_prefix = "tundesblog-dev"
+  environment_prefix = "${var.application_name}-${var.environment_name}-${random_string.suffix.result}"
 }
