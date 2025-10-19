@@ -26,7 +26,7 @@ output "primary_region" {
 }
 
 output "primary_region_instance" {
-  value = var.region_instance_count["eastus"]
+  value = var.region_instance_count["westus"]
 }
 
 output "kind" {
