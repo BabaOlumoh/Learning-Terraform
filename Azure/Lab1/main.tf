@@ -53,10 +53,30 @@ resource "random_string" "map"{
 
 resource "random_string" "if"{
 
-    count = var.enabled ? 2 : 0 #if enabled is true, provision 2 resources, if otherwise, provision 0 resources
-    
+    count = var.enabled ? 1 : 0 #if enabled is true, provision 2 resources, if otherwise, provision 0 resources
+
 
     length = 6 
     upper = false
     special = false
+}
+
+#Modules
+#public/registry modules
+/*
+module "alpha" {
+  source  = "hashicorp/module/random"
+  version = "1.0.0"
+}
+
+module "bravo" {
+  source  = "hashicorp/module/random"
+  version = "1.0.0"
+}
+*/
+
+#child module
+module "charlie" {
+  source = "./modules/rando"
+  length = 8
 }

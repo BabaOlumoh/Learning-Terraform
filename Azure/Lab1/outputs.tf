@@ -36,3 +36,7 @@ output "kind" {
 output "tier" {
   value = var.sku_settings.tier
 }
+
+output "charlie" {
+  value = module.charlie.random_string
+}
