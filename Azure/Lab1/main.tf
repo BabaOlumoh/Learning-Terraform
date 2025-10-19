@@ -26,3 +26,15 @@ Terraform workspace select deafult
 Terraform workspace new dev
 
 */
+
+#Iteration
+
+resource "random_string" "list"{
+
+    count = length((var.regions))
+
+    length = 6 
+    upper = false
+    special = false
+}
+  
