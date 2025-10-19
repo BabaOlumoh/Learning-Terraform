@@ -40,6 +40,7 @@ resource "random_string" "list"{
 }
 */
 
+/*
 resource "random_string" "map"{
 
     for_each = var.region_instance_count
@@ -48,4 +49,14 @@ resource "random_string" "map"{
     upper = false
     special = false
 }
-  
+*/
+
+resource "random_string" "if"{
+
+    count = var.enabled ? 2 : 0 #if enabled is true, provision 2 resources, if otherwise, provision 0 resources
+    
+
+    length = 6 
+    upper = false
+    special = false
+}
