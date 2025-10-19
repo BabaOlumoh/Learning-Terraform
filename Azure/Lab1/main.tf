@@ -49,7 +49,7 @@ resource "random_string" "map"{
     upper = false
     special = false
 }
-*/
+
 
 resource "random_string" "if"{
 
@@ -60,7 +60,7 @@ resource "random_string" "if"{
     upper = false
     special = false
 }
-
+*/
 #Modules
 #public/registry modules
 /*
@@ -73,10 +73,30 @@ module "bravo" {
   source  = "hashicorp/module/random"
   version = "1.0.0"
 }
-*/
+
 
 #child module
 module "charlie" {
   source = "./modules/rando"
   length = 8
+}
+
+*/
+
+module "regionA" {
+  source = "./modules/regional-stamp"
+
+  region = "westus"
+  name = "foo"
+  min_node_count = 4
+  max_node_count = 8
+}
+
+module "regionB" {
+  source = "./modules/regional-stamp"
+
+  region = "eastus"
+  name = "bar"
+  min_node_count = 4
+  max_node_count = 8
 }
