@@ -43,18 +43,22 @@ variable "enabled" {
 
 #Collection Objects
 
+#List: list["string", 1234, "string"]
 variable "regions" {
   type = list(string)
 }
 
+#Map(Dictionary): map{key=value}
 variable "region_instance_count" {
   type = map(string)
 }
 
+#Set(a set is an unordered and unique list) set["string", 1234]
 variable "region_set" {
   type = set(string)
 }
 
+#Complex Object
 variable "sku_settings" {
   type = object({
     kind = string

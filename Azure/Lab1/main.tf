@@ -18,3 +18,11 @@ resource "random_string" "suffix"{
 locals {
   environment_prefix = "${var.application_name}-${var.environment_name}-${random_string.suffix.result}"
 }
+
+/*
+Workspace
+Terraform workspace list
+Terraform workspace select deafult
+Terraform workspace new dev
+
+*/
