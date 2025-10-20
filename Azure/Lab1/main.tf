@@ -17,6 +17,20 @@ resource "random_string" "suffix"{
 #Locals
 locals {
   environment_prefix = "${var.application_name}-${var.environment_name}-${random_string.suffix.result}"
+  regional_stamps = [
+    {
+      region = "westus"
+      name = "foo"
+      min_node_count = 4
+  max_node_count = 8
+    },
+    {
+      region = "eastus"
+      name = "bar"
+      min_node_count = 4
+  max_node_count = 8
+    }
+  ]
 }
 
 /*
@@ -83,20 +97,14 @@ module "charlie" {
 
 */
 
-module "regionA" {
+
+module "regional_stamps" {
   source = "./modules/regional-stamp"
 
-  region = "westus"
-  name = "foo"
-  min_node_count = 4
-  max_node_count = 8
-}
+  count = length(local.regional_stamps)
 
-module "regionB" {
-  source = "./modules/regional-stamp"
-
-  region = "eastus"
-  name = "bar"
-  min_node_count = 4
-  max_node_count = 8
+  region = local.regional_stamps[count.index].region
+  name = local.regional_stamps[count.index].name
+  min_node_count = local.regional_stamps[count.index].min_node_count
+  max_node_count = local.regional_stamps[count.index].max_node_count
 }
