@@ -14,24 +14,7 @@ resource "random_string" "suffix"{
     special = false
 }
 
-#Locals
-locals {
-  environment_prefix = "${var.application_name}-${var.environment_name}-${random_string.suffix.result}"
-  regional_stamps = [
-    {
-      region = "westus"
-      name = "foo"
-      min_node_count = 4
-  max_node_count = 8
-    },
-    {
-      region = "eastus"
-      name = "bar"
-      min_node_count = 4
-  max_node_count = 8
-    }
-  ]
-}
+
 
 /*
 Workspace
@@ -96,7 +79,24 @@ module "charlie" {
 }
 
 */
-
+#Locals
+locals {
+  environment_prefix = "${var.application_name}-${var.environment_name}-${random_string.suffix.result}"
+  regional_stamps = [
+    {
+      region = "westus"
+      name = "foo"
+      min_node_count = 4
+  max_node_count = 8
+    },
+    {
+      region = "eastus"
+      name = "bar"
+      min_node_count = 4
+  max_node_count = 8
+    }
+  ]
+}
 
 module "regional_stamps" {
   source = "./modules/regional-stamp"
