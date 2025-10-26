@@ -7,3 +7,5 @@ crash.log
 terraform.tfvars
 .terraform.lock.hcl
 *.tfstate
+.debug-dev.sh
+.debug-prod.sh
