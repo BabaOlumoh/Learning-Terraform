@@ -25,3 +25,26 @@ resource "azurerm_role_assignment" "terraform_user" {
   role_definition_name = "Key Vault Administrator"
   principal_id         = data.azurerm_client_config.current.object_id
 }
+
+#Log analytics is provisioned elsewhere but needs a reference hence the data source code below
+data "azurerm_log_analytics_workspace" "observability" {
+  name                = "log-observability-dev" #name of log analytics resource
+  resource_group_name = "rg-observability-dev" #rg in which the resouce is 
+}
+
+resource "azurerm_monitor_diagnostic_setting" "main" {
+  name               = "diag-${var.application_name}-${var.environment_name}-${random_string.keyvault_suffix.result}"
+  target_resource_id = azurerm_key_vault.main.id
+  
+  #Log analytics is provisioned elsewhere but needs a reference
+  
+  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.observability.id
+
+  enabled_log {
+    category = "AuditEvent"
+  }
+
+  enabled_metric {
+    category = "AllMetrics"
+  }
+}
