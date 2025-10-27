@@ -29,3 +29,8 @@ resource "azurerm_network_interface" "vm1" {
   }
 }
 
+resource "tls_private_key" "vm1" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
