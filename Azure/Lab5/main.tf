@@ -9,3 +9,31 @@ resource "azurerm_virtual_network" "main" {
   resource_group_name = azurerm_resource_group.main.name
   address_space       = ["10.34.0.0/22"]
 }
+
+resource "azurerm_subnet" "alpha" {
+  name                 = "snet-alpha"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = ["10.34.0.0/24"]
+}
+
+resource "azurerm_subnet" "bravo" {
+  name                 = "snet-bravo"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = ["10.34.1.0/24"]
+}
+
+resource "azurerm_subnet" "charlie" {
+  name                 = "snet-charlie"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = ["10.34.2.0/24"]
+}
+
+resource "azurerm_subnet" "delta" {
+  name                 = "snet-delta"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = ["10.34.3.0/24"]
+}
