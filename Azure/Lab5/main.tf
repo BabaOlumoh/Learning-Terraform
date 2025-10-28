@@ -11,18 +11,20 @@ resource "azurerm_virtual_network" "main" {
 }
 
 locals {
-  alpha_address_space = cidrsubnet(var.base_address_space, 2, 0)
+  bastion_address_space = cidrsubnet(var.base_address_space, 4, 0)
   bravo_address_space = cidrsubnet(var.base_address_space, 2, 1)
   charlie_address_space = cidrsubnet(var.base_address_space ,2, 2)
   delta_address_space = cidrsubnet(var.base_address_space, 2, 3)
 }
 
-
-resource "azurerm_subnet" "alpha" {
-  name                 = "snet-alpha"
+//10.40.0.0/26
+// Start at: 10.40.0.0
+// End at: 10.40.0.63
+resource "azurerm_subnet" "bastion" {
+  name                 = "AzureBastionSubnet"
   resource_group_name  = azurerm_resource_group.main.name
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes     = [local.alpha_address_space]
+  address_prefixes     = [local.bastion_address_space]
 }
 
 resource "azurerm_subnet" "bravo" {
@@ -64,10 +66,7 @@ resource "azurerm_network_security_group" "remote_access" {
     destination_address_prefix = "*"
   }
 }
-resource "azurerm_subnet_network_security_group_association" "alpha_remote_access" {
-  subnet_id                 = azurerm_subnet.alpha.id
-  network_security_group_id = azurerm_network_security_group.remote_access.id
-}
+
 
 data "http" "my_ip"{
   url = "https://ifconfig.me/ip"
