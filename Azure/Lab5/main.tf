@@ -68,3 +68,7 @@ resource "azurerm_bastion_host" "main" {
     public_ip_address_id = azurerm_public_ip.bastion.id
   }
 }
+
+
+
+
