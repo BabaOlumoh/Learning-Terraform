@@ -8,11 +8,13 @@ resource "azuread_group" "remote_access_users" {
   security_enabled = true
 }
 
-resource "azuread_group_member" "tunde_remote_access_membership" {
-  group_object_id  = azuread_group.remote_access_users.object_id
-  member_object_id = data.azuread_user.tunde.object_id
+resource "azuread_group_member" "remote_access_users_membership" {
+    count = length(var.remote_access_users)
+    group_object_id  = azuread_group.remote_access_users.object_id
+    member_object_id = data.azuread_user.remote_access_users[count.index].object_id
 }
 
-data "azuread_user" "tunde" {
-  user_principal_name = "learningandcertifications_gmail.com#EXT#@ogkareemu.live"
+data "azuread_user" "remote_access_users" {
+    count = length(var.remote_access_users)
+    user_principal_name = var.remote_access_users[count.index]
 }
